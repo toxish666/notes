@@ -65,6 +65,7 @@
 (require 'purescript-mode-autoloads)
 (add-to-list 'Info-default-directory-list "/Users/aaa/lib/emacs/purescript-mode/purescript-mode")
 
+(global-set-key (kbd "M-SPC") 'company-complete)
 ;;---------------------------------------------------------------------------
 
 ;; purescript mode
@@ -75,9 +76,7 @@
     (company-mode)
     (flycheck-mode)
     (turn-on-purescript-indentation)))
-(global-set-key (kbd "M-SPC") 'company-complete)
 (customize-set-variable 'psc-ide-rebuild-on-save t)
-
 (eval-after-load 'haskell-mode
           '(define-key haskell-mode-map [f7] 'haskell-navigate-imports))
 
@@ -97,6 +96,18 @@
   (add-hook 'haskell-mode-hook #'hindent-mode)
   (add-hook 'haskell-mode-hook 'dante-mode)
   )
+
+;; cabal/stack install stylish-haskell for lower
+;; for installed stylish-haskell add it location to exec-path
+(setq exec-path (cons "/Users/aaa/.local/bin" exec-path))
+(custom-set-variables
+ '(haskell-stylish-on-save t))
+
+;; navigate to imports
+(define-key haskell-mode-map (kbd "<f7>") 'haskell-navigate-imports)
+(define-key haskell-mode-map (kbd "<f6>") 'haskell-process-load-file)
+
+;; haskell-mode-format-imports  --- C-c C-,
 
 ;;---------------------------------------------------------------------------
 ;; erlang mode
